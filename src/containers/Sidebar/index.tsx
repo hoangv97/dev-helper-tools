@@ -13,23 +13,27 @@ import {
   Heading,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
-import LinkItems from 'constants/LinkItems';
+import LinkTypes from 'constants/LinkTypes';
 import NavItem from './NavItem';
 import { Link } from 'react-router-dom';
 import ColorModeSwitcher from './ColorModeSwitcher';
 import HelpButton from './HelpButton';
+import { capitalize } from 'helpers';
 
 interface SidebarProps extends BoxProps {}
 
 export const Sidebar = (props: SidebarProps) => {
   const [search, setSearch] = useState('');
 
-  const sidebarItems = LinkItems.filter((link, i) => {
-    if (!link.isHeading && !link.name.toLowerCase().includes(search)) {
-      return false;
-    }
-    return true;
-  });
+  const sidebarTypes = LinkTypes.map((type, i) => {
+    const items = type.items.filter((item) =>
+      item.name.toLowerCase().includes(search.toLowerCase())
+    );
+    return {
+      ...type,
+      items,
+    };
+  }).filter((type) => type.items.length > 0);
 
   return (
     <VStack>
@@ -50,19 +54,27 @@ export const Sidebar = (props: SidebarProps) => {
           onChange={(e) => setSearch(e.target.value)}
         />
       </InputGroup>
-      <Box transition="3s ease" w="full" h="full">
-        {sidebarItems.map((link, i) => (
+      <Box
+        transition="3s ease"
+        w="full"
+        h="calc(100vh - 160px)"
+        overflowY="scroll"
+      >
+        {sidebarTypes.map((type, i) => (
           <Box key={i}>
-            {link.isHeading && (
+            {type.name && (
               <Heading size="md" mt="2" mb="1">
-                {link.name}
+                {capitalize(type.name)}
               </Heading>
             )}
-            {!link.isHeading && link.path && (
-              <NavItem path={link.path} fontSize="md">
-                {link.name}
+            {type.items.map((item, i) => (
+              <NavItem
+                key={i}
+                path={(type.name ? type.name + '/' : '') + item.path}
+              >
+                {item.name}
               </NavItem>
-            )}
+            ))}
           </Box>
         ))}
       </Box>

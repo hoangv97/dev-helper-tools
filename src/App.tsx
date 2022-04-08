@@ -13,7 +13,8 @@ import {
 import { Sidebar } from 'containers/Sidebar';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from 'containers/Home';
-import LinkItems from 'constants/LinkItems';
+import LinkTypes from 'constants/LinkTypes';
+import './styles.css';
 
 const config = {
   initialColorMode: 'light',
@@ -24,44 +25,52 @@ const theme = extendTheme({ config });
 
 export const App = () => {
   const { pathname } = useLocation();
-
-  const currentLinkItem = LinkItems.find(
-    (link) => '/' + link.path === pathname
-  );
+  // console.log(pathname);
 
   let headingElement;
-  if (currentLinkItem) {
-    headingElement = (
-      <Center>
-        <Heading size="lg">{currentLinkItem.name}</Heading>
-      </Center>
-    );
+  for (const type of LinkTypes) {
+    for (const item of type.items) {
+      if ((type.name ? '/' : '') + type.name + '/' + item.path === pathname) {
+        headingElement = (
+          <Center mb="5">
+            <Heading size="lg">{item.name + ' ' + type.name}</Heading>
+          </Center>
+        );
+        break;
+      }
+    }
   }
 
   return (
     <ChakraProvider theme={theme}>
       <Box fontSize="xl">
-        <Grid minH="100vh" minW="100vw">
+        <Grid>
           <VStack spacing={8}>
             <Flex h="full" minW="100%" color="current">
               <Box
                 w="400px"
-                p="3"
-                borderRight="1px"
-                borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+                h="100vh"
+                px="3"
+                py="3"
+                // borderRight="1px"
+                // borderRightColor={useColorModeValue('gray.200', 'gray.700')}
               >
                 <Sidebar />
               </Box>
-              <Box w="100%" p="3">
+              <Box w="100%" px="4" py="3">
                 {headingElement}
                 <Routes>
                   <Route path="/" element={<Home />} />
-                  {LinkItems.map((link, i) => (
-                    <Route
-                      key={i}
-                      path={'/' + link.path}
-                      element={link.element}
-                    />
+                  {LinkTypes.map((type, i) => (
+                    <React.Fragment key={i}>
+                      {type.items.map((item, i) => (
+                        <Route
+                          key={i}
+                          path={'/' + type.name + '/' + item.path}
+                          element={item.element}
+                        />
+                      ))}
+                    </React.Fragment>
                   ))}
                 </Routes>
               </Box>

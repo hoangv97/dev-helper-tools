@@ -12,27 +12,31 @@ interface NavItemProps extends FlexProps {
 const NavItem = ({ icon, path, children, ...rest }: NavItemProps) => {
   const { pathname } = useLocation();
 
-  const selectedCss = {
-    bg: 'cyan.400',
-    color: 'white',
-  };
-
   return (
     <Link to={'/' + path} style={{ textDecoration: 'none' }}>
       <Flex
         align="center"
-        p="1"
-        borderRadius="lg"
+        p="1.5"
+        fontSize="md"
+        borderRadius="md"
         role="group"
         cursor="pointer"
-        _hover={selectedCss}
-        {...(pathname === '/' + path ? selectedCss : {})}
+        _hover={{
+          bg: 'teal.300',
+          color: 'white',
+        }}
+        {...(pathname === '/' + path
+          ? {
+              bg: 'teal.300',
+              color: 'white',
+            }
+          : {})}
         {...rest}
       >
         {icon && (
           <Icon
             mr="4"
-            fontSize="16"
+            fontSize="1"
             _groupHover={{
               color: 'white',
             }}
