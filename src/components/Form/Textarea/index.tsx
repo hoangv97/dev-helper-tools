@@ -1,6 +1,5 @@
 import { Box, Textarea, Flex } from '@chakra-ui/react';
-import { CopyButton } from 'components/Common';
-import ClipboardButton from 'components/Common/ClipboardButton';
+import { CopyButton, ClipboardButton } from 'components/Common';
 
 interface Props {
   value: string;
