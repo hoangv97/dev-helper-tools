@@ -12,6 +12,7 @@ import {
   StringCase,
   UnixTime,
   Css as CssConverter,
+  Cipher,
 } from 'components/Converter';
 import { Hash, LoremIpsum, Password, QrCode } from 'components/Generator';
 import { Html as HtmlPreviewer, Markdown } from 'components/Previewer';
@@ -20,7 +21,7 @@ import {
   RegexpTester,
   TextDiffChecker,
   CssPlayground,
-} from 'components/Others';
+} from 'components/Tools';
 import { convertStrByCase } from 'helpers/string';
 
 interface TypeProp {
@@ -72,6 +73,10 @@ const Types: TypeProp[] = [
       {
         name: 'JSON - Query String',
         element: <JsonQueryString />,
+      },
+      {
+        name: 'Cipher Algorithms',
+        element: <Cipher />,
       },
       {
         name: 'Number base',

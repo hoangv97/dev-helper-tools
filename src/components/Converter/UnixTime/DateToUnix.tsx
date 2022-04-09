@@ -6,15 +6,12 @@ import {
   Button,
   Flex,
   Text,
-  useToast,
 } from '@chakra-ui/react';
-import { copyToClipboard } from 'helpers';
+import { CopyButton } from 'components/Common';
 import moment, { Moment } from 'moment';
 import { useState } from 'react';
 
 const DateToUnix = () => {
-  const toast = useToast();
-
   const [date, setDate] = useState<string>('');
   const [time, setTime] = useState<Moment | undefined>();
 
@@ -50,14 +47,9 @@ const DateToUnix = () => {
               Timestamp:{' '}
             </Text>
             {time.unix() + ''}
-            <Button
-              h="1.75rem"
-              size="sm"
-              ml="5"
-              onClick={() => copyToClipboard(time.unix() + '', toast)}
-            >
-              Copy
-            </Button>
+            <Box ml="5">
+              <CopyButton value={time.unix() + ''} />
+            </Box>
           </Flex>
         </Box>
       )}

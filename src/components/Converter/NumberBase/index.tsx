@@ -1,15 +1,5 @@
-import {
-  Stack,
-  InputGroup,
-  Input,
-  InputLeftAddon,
-  InputRightElement,
-  Button,
-  useToast,
-  Flex,
-  Text,
-} from '@chakra-ui/react';
-import { copyToClipboard } from 'helpers';
+import { Stack, Button, useToast, Flex, Text } from '@chakra-ui/react';
+import { InputWithCopy } from 'components/Form';
 import { useState } from 'react';
 
 interface NumberProp {
@@ -61,24 +51,12 @@ const NumberBase = () => {
           </Button>
         </Flex>
         {numbers.map((number, i) => (
-          <InputGroup key={number.radix}>
-            <InputLeftAddon children={`Base ${number.radix}`} minW="90px" />
-            <Input
-              type="text"
-              placeholder=""
-              value={number.value}
-              onChange={(e) => handleChange(number, e.target.value)}
-            />
-            <InputRightElement width="4.5rem">
-              <Button
-                h="1.75rem"
-                size="sm"
-                onClick={() => copyToClipboard(number.value, toast)}
-              >
-                Copy
-              </Button>
-            </InputRightElement>
-          </InputGroup>
+          <InputWithCopy
+            key={number.radix}
+            leftAddon={{ children: `Base ${number.radix}`, minW: '90px' }}
+            value={number.value}
+            onChange={(value) => handleChange(number, value)}
+          />
         ))}
       </Stack>
     </div>

@@ -1,6 +1,6 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Flex, Select, Center, IconButton, Button } from '@chakra-ui/react';
-import { TextareaWrapper } from 'components/Common';
+import { Textarea } from 'components/Form';
 import { CASE_TYPES, convertStrByCase } from 'helpers/string';
 import { useState } from 'react';
 
@@ -19,9 +19,9 @@ const StringCase = () => {
     setOutput(convertStrByCase(input, e.target.value));
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInput(e.target.value);
-    setOutput(convertStrByCase(e.target.value, caseType));
+  const handleInputChange = (value: string) => {
+    setInput(value);
+    setOutput(convertStrByCase(value, caseType));
   };
 
   const insertSample = () => {
@@ -38,11 +38,7 @@ const StringCase = () => {
               Sample
             </Button>
           </Flex>
-          <TextareaWrapper
-            {...{ minH: '300px' }}
-            value={input}
-            onChange={handleInputChange}
-          />
+          <Textarea minH="300px" value={input} onChange={handleInputChange} />
         </Flex>
         <Center>
           <IconButton
@@ -66,10 +62,11 @@ const StringCase = () => {
               ))}
             </Select>
           </Flex>
-          <TextareaWrapper
-            {...{ minH: '300px' }}
+          <Textarea
+            minH="300px"
             value={output}
             onChange={() => {}}
+            hidesClipboard
           />
         </Flex>
       </Flex>

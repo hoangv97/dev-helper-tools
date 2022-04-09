@@ -1,1 +1,1 @@
-export { default as TextareaWrapper } from './Textarea';
+export { default as CopyButton } from './CopyButton';

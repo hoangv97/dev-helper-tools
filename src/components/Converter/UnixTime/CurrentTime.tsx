@@ -1,24 +1,14 @@
-import {
-  Box,
-  InputGroup,
-  Input,
-  InputLeftAddon,
-  InputRightElement,
-  Button,
-  useToast,
-} from '@chakra-ui/react';
-import { copyToClipboard } from 'helpers';
+import { Box } from '@chakra-ui/react';
+import { InputWithCopy } from 'components/Form';
 import moment from 'moment';
 import { useEffect, useRef, useState } from 'react';
 
 const CurrentTime = () => {
-  const toast = useToast();
-
   const getCurrentTime = () => {
-    return moment().unix();
+    return moment().unix() + '';
   };
 
-  const [currentTime, setCurrentTime] = useState<number>(getCurrentTime);
+  const [currentTime, setCurrentTime] = useState<string>(getCurrentTime);
 
   const currentTimeInterval = useRef<NodeJS.Timeout>();
 
@@ -33,24 +23,11 @@ const CurrentTime = () => {
 
   return (
     <Box>
-      <InputGroup>
-        <InputLeftAddon children="Current epoch time" />
-        <Input
-          type="text"
-          placeholder=""
-          value={currentTime}
-          onChange={() => {}}
-        />
-        <InputRightElement width="4.5rem">
-          <Button
-            h="1.75rem"
-            size="sm"
-            onClick={() => copyToClipboard(currentTime + '', toast)}
-          >
-            Copy
-          </Button>
-        </InputRightElement>
-      </InputGroup>
+      <InputWithCopy
+        leftAddon={{ children: 'Current epoch time' }}
+        value={currentTime}
+        onChange={() => {}}
+      />
     </Box>
   );
 };
