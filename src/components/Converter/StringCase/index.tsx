@@ -1,6 +1,6 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Flex, Select, Center, IconButton, Button } from '@chakra-ui/react';
-import { TextareaWrapper } from 'components/common';
+import { TextareaWrapper } from 'components/Common';
 import { CASE_TYPES, convertStrByCase } from 'helpers/string';
 import { useState } from 'react';
 
