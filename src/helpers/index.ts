@@ -11,5 +11,3 @@ export const copyToClipboard = (text: string, toast?: any) => {
 
   toast({ description: 'Copied to clipboard' });
 }
-
-export const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);

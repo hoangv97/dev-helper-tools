@@ -21,6 +21,7 @@ import {
   TextDiffChecker,
   CssPlayground,
 } from 'components/Others';
+import { convertStrByCase } from 'helpers/string';
 
 interface TypeProp {
   name: string;
@@ -29,7 +30,6 @@ interface TypeProp {
 
 interface ItemProp {
   name: string;
-  path: string;
   element: ReactElement;
 }
 
@@ -39,18 +39,15 @@ const Types: TypeProp[] = [
     items: [
       {
         name: 'Regexp tester',
-        path: 'regexp-tester',
         element: <RegexpTester />,
       },
-      { name: 'Cronjob', path: 'cronjob', element: <Cronjob /> },
+      { name: 'Cronjob', element: <Cronjob /> },
       {
         name: 'Text diff checker',
-        path: 'text-diff-checker',
         element: <TextDiffChecker />,
       },
       {
         name: 'CSS Playground',
-        path: 'css-playground',
         element: <CssPlayground />,
       },
     ],
@@ -58,10 +55,10 @@ const Types: TypeProp[] = [
   {
     name: 'beautifier',
     items: [
-      { name: 'HTML', path: 'html', element: <HtmlBeautifier /> },
-      { name: 'CSS', path: 'css', element: <CssBeautifier /> },
-      { name: 'Javascript', path: 'js', element: <Javascript /> },
-      { name: 'SQL', path: 'sql', element: <Sql /> },
+      { name: 'HTML', element: <HtmlBeautifier /> },
+      { name: 'CSS', element: <CssBeautifier /> },
+      { name: 'Javascript', element: <Javascript /> },
+      { name: 'SQL', element: <Sql /> },
     ],
   },
   {
@@ -69,39 +66,34 @@ const Types: TypeProp[] = [
     items: [
       {
         name: 'CSS - SCSS/LESS',
-        path: 'css',
         element: <CssConverter />,
       },
-      { name: 'JSON - CSV', path: 'json-csv', element: <JsonCsv /> },
+      { name: 'JSON - CSV', element: <JsonCsv /> },
       {
         name: 'JSON - Query String',
-        path: 'json-query-string',
         element: <JsonQueryString />,
       },
       {
         name: 'Number base',
-        path: 'number-base',
         element: <NumberBase />,
       },
       {
         name: 'String case',
-        path: 'string-case',
         element: <StringCase />,
       },
-      { name: 'UNIX time', path: 'unix-time', element: <UnixTime /> },
+      { name: 'UNIX time', element: <UnixTime /> },
     ],
   },
   {
     name: 'generator',
     items: [
-      { name: 'Hash', path: 'unix-time', element: <Hash /> },
+      { name: 'Hash', element: <Hash /> },
       {
         name: 'Lorem Ipsum',
-        path: 'lorem-ipsum',
         element: <LoremIpsum />,
       },
-      { name: 'Password', path: 'password', element: <Password /> },
-      { name: 'QR Code', path: 'qr-code', element: <QrCode /> },
+      { name: 'Password', element: <Password /> },
+      { name: 'QR Code', element: <QrCode /> },
     ],
   },
   {
@@ -109,12 +101,17 @@ const Types: TypeProp[] = [
     items: [
       {
         name: 'HTML',
-        path: 'html',
         element: <HtmlPreviewer />,
       },
-      { name: 'Markdown', path: 'markdown', element: <Markdown /> },
+      { name: 'Markdown', element: <Markdown /> },
     ],
   },
 ];
+
+export const getPath = (type: TypeProp, item: ItemProp) => {
+  return (
+    (type.name ? type.name + '/' : '') + convertStrByCase(item.name, 'kebab')
+  );
+};
 
 export default Types;

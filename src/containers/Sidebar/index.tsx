@@ -13,12 +13,12 @@ import {
   Heading,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
-import LinkTypes from 'constants/LinkTypes';
+import LinkTypes, { getPath } from 'constants/LinkTypes';
 import NavItem from './NavItem';
 import { Link } from 'react-router-dom';
 import ColorModeSwitcher from './ColorModeSwitcher';
 import HelpButton from './HelpButton';
-import { capitalize } from 'helpers';
+import { capitalize } from 'helpers/string';
 
 interface SidebarProps extends BoxProps {}
 
@@ -68,10 +68,7 @@ export const Sidebar = (props: SidebarProps) => {
               </Heading>
             )}
             {type.items.map((item, i) => (
-              <NavItem
-                key={i}
-                path={(type.name ? type.name + '/' : '') + item.path}
-              >
+              <NavItem key={i} path={getPath(type, item)}>
                 {item.name}
               </NavItem>
             ))}

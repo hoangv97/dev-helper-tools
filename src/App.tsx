@@ -6,14 +6,13 @@ import {
   Grid,
   Flex,
   extendTheme,
-  useColorModeValue,
   Center,
   Heading,
 } from '@chakra-ui/react';
 import { Sidebar } from 'containers/Sidebar';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from 'containers/Home';
-import LinkTypes from 'constants/LinkTypes';
+import LinkTypes, { getPath } from 'constants/LinkTypes';
 import './styles.css';
 
 const config = {
@@ -25,12 +24,12 @@ const theme = extendTheme({ config });
 
 export const App = () => {
   const { pathname } = useLocation();
-  // console.log(pathname);
+  console.log(pathname);
 
   let headingElement;
   for (const type of LinkTypes) {
     for (const item of type.items) {
-      if ((type.name ? '/' : '') + type.name + '/' + item.path === pathname) {
+      if ('/' + getPath(type, item) === pathname) {
         headingElement = (
           <Center mb="5">
             <Heading size="lg">{item.name + ' ' + type.name}</Heading>
@@ -66,7 +65,7 @@ export const App = () => {
                       {type.items.map((item, i) => (
                         <Route
                           key={i}
-                          path={'/' + type.name + '/' + item.path}
+                          path={'/' + getPath(type, item)}
                           element={item.element}
                         />
                       ))}
