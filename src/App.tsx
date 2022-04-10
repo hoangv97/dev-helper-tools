@@ -2,11 +2,12 @@ import * as React from 'react';
 import {
   ChakraProvider,
   Box,
-  VStack,
+  HStack,
   Grid,
   Flex,
   Center,
   Heading,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { Sidebar } from 'containers/Sidebar';
 import { Routes, Route, useLocation } from 'react-router-dom';
@@ -18,6 +19,10 @@ import theme from './theme';
 export const App = () => {
   const { pathname } = useLocation();
   console.log(pathname);
+
+  // TODO fix this
+  const borderRightColor = useColorModeValue('gray.200', 'red.700');
+  // console.log(borderRightColor);
 
   let headingElement;
   for (const type of LinkTypes) {
@@ -37,20 +42,26 @@ export const App = () => {
     <ChakraProvider theme={theme}>
       <Box fontSize="xl">
         <Grid>
-          <VStack spacing={8}>
-            <Flex h="full" minW="100%" color="current">
-              <Box
-                w="400px"
-                h="100vh"
-                px="3"
-                py="3"
-                // borderRight="1px"
-                // borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-              >
-                <Sidebar />
-              </Box>
-              <Box w="100%" h="100vh" overflowY="scroll" px="4" py="3">
-                {headingElement}
+          <HStack h="100vh" overflow="hidden">
+            <Box
+              w="300px"
+              px="3"
+              py="3"
+              borderRight="1px"
+              borderRightColor={borderRightColor}
+            >
+              <Sidebar />
+            </Box>
+            <Flex
+              flexGrow={1}
+              p="3"
+              overflowY="scroll"
+              h="full"
+              direction="column"
+              alignItems="stretch"
+            >
+              {headingElement}
+              <Box flexGrow={1}>
                 <Routes>
                   <Route path="/" element={<Home />} />
                   {LinkTypes.map((type, i) => (
@@ -67,7 +78,7 @@ export const App = () => {
                 </Routes>
               </Box>
             </Flex>
-          </VStack>
+          </HStack>
         </Grid>
       </Box>
     </ChakraProvider>

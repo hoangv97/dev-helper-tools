@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import {
   Box,
-  Grid,
   Flex,
   VStack,
-  useColorModeValue,
   Text,
   BoxProps,
   InputGroup,

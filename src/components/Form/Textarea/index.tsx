@@ -17,7 +17,7 @@ const TextareaWrapper = ({
   minH,
 }: Props) => {
   return (
-    <Box>
+    <Box w="full">
       <Textarea
         minH={minH ?? '120px'}
         value={value}

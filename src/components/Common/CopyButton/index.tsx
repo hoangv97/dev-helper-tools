@@ -1,10 +1,11 @@
 import { Button, useToast } from '@chakra-ui/react';
 
 interface Props {
-  value: string;
+  value?: string;
+  onClick?: () => void;
 }
 
-const CopyButton = ({ value }: Props) => {
+const CopyButton = ({ value, onClick }: Props) => {
   const toast = useToast();
 
   return (
@@ -12,7 +13,13 @@ const CopyButton = ({ value }: Props) => {
       h="1.75rem"
       size="sm"
       onClick={async () => {
-        await navigator.clipboard.writeText(value);
+        if (value) {
+          await navigator.clipboard.writeText(value);
+        } else if (onClick) {
+          onClick();
+        } else {
+          return;
+        }
         toast({ description: 'Copied to clipboard' });
       }}
     >

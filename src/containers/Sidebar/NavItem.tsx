@@ -22,12 +22,12 @@ const NavItem = ({ icon, path, children, ...rest }: NavItemProps) => {
         role="group"
         cursor="pointer"
         _hover={{
-          bg: 'teal.300',
+          bg: 'blue.300',
           color: 'white',
         }}
         {...(pathname === '/' + path
           ? {
-              bg: 'teal.300',
+              bg: 'blue.300',
               color: 'white',
             }
           : {})}

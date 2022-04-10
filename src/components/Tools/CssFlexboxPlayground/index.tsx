@@ -17,7 +17,7 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { CodeEditor, NumberInput } from 'components/Form';
-import { randomColor } from 'helpers/color';
+import { randomObject } from 'helpers/color';
 import { camelToKebabCase, convertStrByCase } from 'helpers/string';
 import { useEffect, useState } from 'react';
 
@@ -95,7 +95,7 @@ interface Item {
 
 const Home = () => {
   const newItem = (): Item => {
-    const style: any = { bg: randomColor(400) };
+    const style: any = { ...randomObject() };
     itemStyles.forEach((item) => {
       let value;
       if (item.options) {
@@ -118,7 +118,7 @@ const Home = () => {
     return style;
   });
   const [items, setItems] = useState<Item[]>(() => {
-    const initialItems = 5;
+    const initialItems = 3;
     const items: Item[] = [];
     for (let i = 0; i < initialItems; i++) {
       items.push(newItem());
@@ -229,7 +229,7 @@ const Home = () => {
         </Flex>
       </Box>
       <Box border="1px solid gray">
-        <Flex h="full" minH="400px" style={{ ...containerStyle }}>
+        <Flex h="full" minH="300px" style={{ ...containerStyle }}>
           {items.map((item, index) => (
             <Flex
               key={index}
