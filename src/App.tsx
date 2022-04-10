@@ -5,7 +5,6 @@ import {
   VStack,
   Grid,
   Flex,
-  extendTheme,
   Center,
   Heading,
 } from '@chakra-ui/react';
@@ -14,13 +13,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from 'containers/Home';
 import LinkTypes, { getPath } from 'constants/LinkTypes';
 import './styles.css';
-
-const config = {
-  initialColorMode: 'light',
-  useSystemColorMode: false,
-};
-
-const theme = extendTheme({ config });
+import theme from './theme';
 
 export const App = () => {
   const { pathname } = useLocation();
@@ -56,7 +49,7 @@ export const App = () => {
               >
                 <Sidebar />
               </Box>
-              <Box w="100%" px="4" py="3">
+              <Box w="100%" h="100vh" overflowY="scroll" px="4" py="3">
                 {headingElement}
                 <Routes>
                   <Route path="/" element={<Home />} />

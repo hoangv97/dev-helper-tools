@@ -48,3 +48,11 @@ export const convertStrByCase = (str: string, caseType: string) => {
       return str;
   }
 };
+
+export const camelToKebabCase = (propertyName: string) => {
+  function upperToHyphenLower(match: string, offset: number, string: string) {
+    return (offset > 0 ? '-' : '') + match.toLowerCase();
+  }
+  return propertyName.replace(/[A-Z]/g, upperToHyphenLower);
+}
+

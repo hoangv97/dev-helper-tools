@@ -20,7 +20,7 @@ import {
   Cronjob,
   RegexpTester,
   TextDiffChecker,
-  CssPlayground,
+  CssFlexboxPlayground,
 } from 'components/Tools';
 import { convertStrByCase } from 'helpers/string';
 
@@ -48,8 +48,8 @@ const Types: TypeProp[] = [
         element: <TextDiffChecker />,
       },
       {
-        name: 'CSS Playground',
-        element: <CssPlayground />,
+        name: 'CSS Flexbox',
+        element: <CssFlexboxPlayground />,
       },
     ],
   },

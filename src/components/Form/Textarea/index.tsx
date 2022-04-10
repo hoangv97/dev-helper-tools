@@ -19,7 +19,7 @@ const TextareaWrapper = ({
   return (
     <Box>
       <Textarea
-        minH={minH}
+        minH={minH ?? '120px'}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       ></Textarea>
