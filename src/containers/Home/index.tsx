@@ -1,7 +1,11 @@
-import { Center } from '@chakra-ui/react';
+import { Flex, Heading } from '@chakra-ui/react';
 
 const Home = () => {
-  return <Center>Home</Center>;
+  return (
+    <Flex h="full" justifyContent="center" alignItems="center">
+      <Heading>Developer's Toolbox</Heading>
+    </Flex>
+  );
 };
 
 export default Home;

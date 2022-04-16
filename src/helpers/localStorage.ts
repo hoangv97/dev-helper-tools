@@ -1,5 +1,8 @@
 export const ACTIONS = {
   CODE_EDITOR_SETTINGS: 'CODE_EDITOR_SETTINGS',
+  HTML_PREVIEW_CODE: 'HTML_PREVIEW_CODE',
+  MD_PREVIEW_CODE: 'MD_PREVIEW_CODE',
+  CSS_FLEXBOX: 'CSS_FLEXBOX',
 }
 
 export const getLocalStorage = (key: string, defaultValue?: any) => {

@@ -1,0 +1,41 @@
+.ProseMirror,
+.toastui-editor-contents {
+  font-size: 15px;
+}
+
+.toastui-editor-defaultUI-toolbar,
+.toastui-editor-dropdown-toolbar,
+.toastui-editor-popup,
+.toastui-editor-context-menu {
+  background-color: var(--chakra-colors-gray-100);
+}
+
+.toastui-editor-defaultUI-toolbar button {
+  border-color: transparent;
+}
+
+.toastui-editor-dark {
+  .toastui-editor-md-container,
+  .toastui-editor-ww-container {
+    background-color: var(--chakra-colors-gray-800);
+  }
+  
+  .toastui-editor-defaultUI-toolbar,
+  .toastui-editor-dropdown-toolbar,
+  .toastui-editor-popup,
+  .toastui-editor-context-menu {
+    background-color: var(--chakra-colors-gray-900);
+  }
+  
+  .toastui-editor-toolbar-icons {
+    border-color: transparent;
+  }
+
+  .toastui-editor-contents {
+    .toastui-editor-md-preview-highlight {
+      &::after {
+        background-color: var(--chakra-colors-yellow-600);
+      }
+    }
+  }
+}

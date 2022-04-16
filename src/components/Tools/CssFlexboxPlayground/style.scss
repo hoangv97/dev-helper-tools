@@ -1,0 +1,12 @@
+.item {
+
+  .delete-btn {
+    visibility: hidden;
+  }
+
+  &:hover {
+    .delete-btn {
+      visibility: visible;
+    }
+  }
+}

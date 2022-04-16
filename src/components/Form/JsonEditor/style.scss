@@ -1,0 +1,93 @@
+
+/* dark styling of the editor */
+.chakra-ui-dark {
+  div.jsoneditor,
+  div.jsoneditor-menu {
+    border-color: var(--chakra-colors-gray-700);
+  }
+  
+  div.jsoneditor-menu {
+    background-color: var(--chakra-colors-gray-700);
+  }
+  
+  div.jsoneditor-tree,
+  div.jsoneditor textarea.jsoneditor-text,
+  div.jsoneditor.jsoneditor-mode-preview pre.jsoneditor-preview {
+    background-color: var(--chakra-colors-gray-600);
+    color: #fff;
+  }
+  
+  div.jsoneditor-field,
+  div.jsoneditor-value {
+    color: #fff;
+  }
+  
+  table.jsoneditor-search div.jsoneditor-frame {
+    background: var(--chakra-colors-gray-700);
+  }
+  
+  tr.jsoneditor-highlight,
+  tr.jsoneditor-selected {
+    background-color: var(--chakra-colors-gray-700);
+  }
+  
+  div.jsoneditor-field[contenteditable=true]:focus,
+  div.jsoneditor-field[contenteditable=true]:hover,
+  div.jsoneditor-value[contenteditable=true]:focus,
+  div.jsoneditor-value[contenteditable=true]:hover,
+  div.jsoneditor-field.jsoneditor-highlight,
+  div.jsoneditor-value.jsoneditor-highlight {
+    background-color: var(--chakra-colors-gray-700);
+    border-color: var(--chakra-colors-gray-700);
+  }
+  
+  div.jsoneditor-field.highlight-active,
+  div.jsoneditor-field.highlight-active:focus,
+  div.jsoneditor-field.highlight-active:hover,
+  div.jsoneditor-value.highlight-active,
+  div.jsoneditor-value.highlight-active:focus,
+  div.jsoneditor-value.highlight-active:hover {
+    background-color: var(--chakra-colors-gray-600);
+    border-color: var(--chakra-colors-gray-600);
+  }
+  
+  div.jsoneditor-tree button:focus {
+    background-color: var(--chakra-colors-gray-700);
+  }
+  
+  /* coloring of JSON in tree mode */
+  div.jsoneditor-readonly {
+    color: var(--chakra-colors-gray-500);
+  }
+  
+  div.jsoneditor td.jsoneditor-separator {
+    color: var(--chakra-colors-gray-500);
+  }
+  
+  div.jsoneditor-value {
+    &.jsoneditor-string {
+      color: var(--chakra-colors-green-300);
+    }
+    
+    &.jsoneditor-object,
+    &.jsoneditor-array {
+      color: var(--chakra-colors-gray-200);
+    }
+    
+    &.jsoneditor-number {
+      color: var(--chakra-colors-red-300);
+    }
+    
+    &.jsoneditor-boolean {
+      color: var(--chakra-colors-orange-400);
+    }
+    
+    &.jsoneditor-null {
+      color: var(--chakra-colors-blue-300);
+    }
+    
+    &.jsoneditor-invalid {
+      color: #fff;
+    }
+  }
+}

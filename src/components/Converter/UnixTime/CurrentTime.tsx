@@ -27,6 +27,7 @@ const CurrentTime = () => {
         leftAddon={{ children: 'Current epoch time' }}
         value={currentTime}
         onChange={() => {}}
+        readOnly
       />
     </Box>
   );

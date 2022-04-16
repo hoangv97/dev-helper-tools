@@ -11,7 +11,6 @@ const ColorModeSwitcher: React.FC<ButtonProps> = (props) => {
       fontSize="lg"
       variant="ghost"
       color="current"
-      marginLeft="2"
       onClick={() => {}}
       icon={<FaQuestion />}
       aria-label={`Help`}

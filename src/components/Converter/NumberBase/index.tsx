@@ -1,4 +1,4 @@
-import { Stack, Button, useToast, Flex, Text } from '@chakra-ui/react';
+import { Button, useToast, Flex, Text } from '@chakra-ui/react';
 import { InputWithCopy } from 'components/Form';
 import { useState } from 'react';
 
@@ -25,7 +25,7 @@ const NumberBase = () => {
     setNumbers((numbers) =>
       numbers.map((n) => ({
         ...n,
-        value: newValue ? new Number(numValue).toString(n.radix) : '',
+        value: newValue ? Number(numValue).toString(n.radix) : '',
       }))
     );
   };
@@ -41,8 +41,8 @@ const NumberBase = () => {
 
   return (
     <div>
-      <Stack spacing={4}>
-        <Text fontSize="lg">
+      <Flex direction="column" gap={4}>
+        <Text fontSize="md">
           Auto convert number in one base type to others.
         </Text>
         <Flex justifyContent="end">
@@ -58,7 +58,7 @@ const NumberBase = () => {
             onChange={(value) => handleChange(number, value)}
           />
         ))}
-      </Stack>
+      </Flex>
     </div>
   );
 };

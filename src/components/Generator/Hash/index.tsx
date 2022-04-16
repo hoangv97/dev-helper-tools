@@ -76,6 +76,7 @@ const Home = () => {
             value={func.value}
             leftAddon={{ children: func.name, minW: '145px' }}
             onChange={() => {}}
+            readOnly
           />
         ))}
       </Flex>

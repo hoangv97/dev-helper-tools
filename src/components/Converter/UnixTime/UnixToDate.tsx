@@ -19,7 +19,7 @@ const UnixToDate = () => {
     <Box>
       <Flex>
         <NumberInput
-          leftAddon={{ children: 'UNIX time' }}
+          leftAddon={{ children: 'Unix time' }}
           value={unixTime}
           onChange={(_, num) => setUnixTime(num)}
         />

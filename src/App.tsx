@@ -2,35 +2,32 @@ import * as React from 'react';
 import {
   ChakraProvider,
   Box,
-  HStack,
   Grid,
   Flex,
   Center,
   Heading,
-  useColorModeValue,
 } from '@chakra-ui/react';
 import { Sidebar } from 'containers/Sidebar';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from 'containers/Home';
 import LinkTypes, { getPath } from 'constants/LinkTypes';
-import './styles.css';
+import './style.scss';
 import theme from './theme';
+import { capitalize } from 'helpers/string';
 
 export const App = () => {
   const { pathname } = useLocation();
   console.log(pathname);
-
-  // TODO fix this
-  const borderRightColor = useColorModeValue('gray.200', 'red.700');
-  // console.log(borderRightColor);
 
   let headingElement;
   for (const type of LinkTypes) {
     for (const item of type.items) {
       if ('/' + getPath(type, item) === pathname) {
         headingElement = (
-          <Center mb="5">
-            <Heading size="lg">{item.name + ' ' + type.name}</Heading>
+          <Center>
+            <Heading size="md">
+              {item.name + ' ' + capitalize(type.name)}
+            </Heading>
           </Center>
         );
         break;
@@ -40,25 +37,20 @@ export const App = () => {
 
   return (
     <ChakraProvider theme={theme}>
-      <Box fontSize="xl">
+      <Box transition="3s ease">
         <Grid>
-          <HStack h="100vh" overflow="hidden">
-            <Box
-              w="300px"
-              px="3"
-              py="3"
-              borderRight="1px"
-              borderRightColor={borderRightColor}
-            >
-              <Sidebar />
-            </Box>
+          <Flex h="100vh" overflow="hidden">
+            <Sidebar />
             <Flex
               flexGrow={1}
-              p="3"
+              pl="6"
+              pr="3"
+              py="3"
               overflowY="scroll"
               h="full"
               direction="column"
               alignItems="stretch"
+              gap="5"
             >
               {headingElement}
               <Box flexGrow={1}>
@@ -78,7 +70,7 @@ export const App = () => {
                 </Routes>
               </Box>
             </Flex>
-          </HStack>
+          </Flex>
         </Grid>
       </Box>
     </ChakraProvider>

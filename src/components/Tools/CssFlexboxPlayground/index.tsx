@@ -1,10 +1,10 @@
+import { CloseIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
   Flex,
   Radio,
   RadioGroup,
-  Stack,
   Text,
   Modal,
   ModalOverlay,
@@ -15,115 +15,43 @@ import {
   ModalCloseButton,
   useDisclosure,
   Input,
+  IconButton,
 } from '@chakra-ui/react';
 import { CodeEditor, NumberInput } from 'components/Form';
-import { randomObject } from 'helpers/color';
-import { camelToKebabCase, convertStrByCase } from 'helpers/string';
+import { getCurrentSettings } from 'components/Form/CodeEditor/settings';
+import {
+  ACTIONS,
+  getLocalStorage,
+  setLocalStorage,
+} from 'helpers/localStorage';
+import { convertStrByCase } from 'helpers/string';
 import { useEffect, useState } from 'react';
-
-interface ContainerStyle {
-  name: string;
-  options: string[];
-}
-
-const containerStyles: ContainerStyle[] = [
-  {
-    name: 'flex-direction',
-    options: ['row', 'row-reverse', 'column', 'column-reverse'],
-  },
-  {
-    name: 'flex-wrap',
-    options: ['nowrap', 'wrap', 'wrap-reverse'],
-  },
-  {
-    name: 'justify-content',
-    options: [
-      'flex-start',
-      'flex-end',
-      'center',
-      'space-between',
-      'space-around',
-    ],
-  },
-  {
-    name: 'align-items',
-    options: ['flex-start', 'flex-end', 'center', 'baseline', 'stretch'],
-  },
-  {
-    name: 'align-content',
-    options: [
-      'flex-start',
-      'flex-end',
-      'center',
-      'space-between',
-      'space-around',
-      'stretch',
-    ],
-  },
-];
-
-interface ItemStyle {
-  name: string;
-  number?: number;
-  string?: string;
-  options?: string[];
-}
-
-const itemStyles: ItemStyle[] = [
-  { name: 'order', number: 0 },
-  { name: 'flex-grow', number: 0 },
-  { name: 'flex-shrink', number: 1 },
-  { name: 'flex-basis', string: 'auto' },
-  {
-    name: 'align-self',
-    options: [
-      'auto',
-      'flex-start',
-      'flex-end',
-      'center',
-      'baseline',
-      'stretch',
-    ],
-  },
-];
-
-interface Item {
-  index?: number;
-  edited?: boolean;
-  style: any;
-}
+import {
+  containerStyles,
+  getDefaultContainerStyle,
+  defaultItems,
+  getDefaultItemStyle,
+  getCssCode,
+  Item,
+  itemStyles,
+  newItem,
+} from './helper';
+import './style.scss';
 
 const Home = () => {
-  const newItem = (): Item => {
-    const style: any = { ...randomObject() };
-    itemStyles.forEach((item) => {
-      let value;
-      if (item.options) {
-        value = item.options[0];
-      } else if (item.number !== undefined) {
-        value = item.number;
-      } else if (item.string !== undefined) {
-        value = item.string;
-      }
-      style[convertStrByCase(item.name, 'camel')] = value;
-    });
-    return { style };
-  };
-
   const [containerStyle, setContainerStyle] = useState<any>(() => {
-    const style: any = {};
-    containerStyles.forEach((item) => {
-      style[convertStrByCase(item.name, 'camel')] = item.options[0];
-    });
-    return style;
+    const data = getLocalStorage(ACTIONS.CSS_FLEXBOX);
+    if (data) {
+      return data.containerStyle;
+    }
+    return getDefaultContainerStyle();
   });
   const [items, setItems] = useState<Item[]>(() => {
-    const initialItems = 3;
-    const items: Item[] = [];
-    for (let i = 0; i < initialItems; i++) {
-      items.push(newItem());
+    const data = getLocalStorage(ACTIONS.CSS_FLEXBOX);
+    if (data) {
+      return data.items;
     }
-    return items;
+    return defaultItems();
   });
   const [editedItem, setEditedItem] = useState<Item | undefined>();
 
@@ -136,23 +64,10 @@ const Home = () => {
   } = useDisclosure();
 
   useEffect(() => {
-    let cssCode = `.container {
-  ${Object.keys(containerStyle)
-    .map((k) => `${camelToKebabCase(k)}: ${containerStyle[k]};`)
-    .join('\n  ')}
-}`;
-    items.forEach((item, i) => {
-      if (item.edited) {
-        cssCode += `
-.item-${i + 1} {
-  ${Object.keys(item.style)
-    .filter((k) => !['bg'].includes(k))
-    .map((k) => `${camelToKebabCase(k)}: ${item.style[k]};`)
-    .join('\n  ')}
-}`;
-      }
-    });
-    setCssCode(cssCode);
+    const tabSize = getCurrentSettings().tabSize;
+    const tab = ' '.repeat(tabSize);
+    setCssCode(getCssCode(containerStyle, items, tab));
+    setLocalStorage(ACTIONS.CSS_FLEXBOX, { containerStyle, items });
   }, [containerStyle, items]);
 
   useEffect(() => {
@@ -196,18 +111,26 @@ const Home = () => {
                 }}
                 value={containerStyle[convertStrByCase(item.name, 'camel')]}
               >
-                <Stack direction="row" gap="2">
+                <Flex direction="row" gap="2">
                   {item.options.map((option) => (
                     <Radio key={option} value={option}>
                       {option}
                     </Radio>
                   ))}
-                </Stack>
+                </Flex>
               </RadioGroup>
             </Flex>
           ))}
         </Flex>
         <Flex my="4" gap="3">
+          <Button
+            size="sm"
+            onClick={() => {
+              setContainerStyle(getDefaultContainerStyle());
+            }}
+          >
+            Default style
+          </Button>
           <Button
             size="sm"
             onClick={() => {
@@ -223,7 +146,7 @@ const Home = () => {
                 setItems([]);
               }}
             >
-              Clear
+              Clear items
             </Button>
           )}
         </Flex>
@@ -236,16 +159,35 @@ const Home = () => {
               minW="100px"
               minH="50px"
               cursor="pointer"
-              justifyContent="center"
-              alignItems="center"
-              _hover={{ fontWeight: 'bold' }}
+              justifyContent="end"
+              alignItems="stretch"
+              position="relative"
+              className="item"
               {...item.style}
-              onClick={() => {
-                setEditedItem({ ...item, index });
-                onOpenModal();
-              }}
             >
-              {index + 1}
+              <Flex
+                justifyContent="center"
+                alignItems="center"
+                flexGrow={1}
+                _hover={{ fontWeight: 'bold' }}
+                onClick={() => {
+                  setEditedItem({ ...item, index });
+                  onOpenModal();
+                }}
+              >
+                {index + 1}
+              </Flex>
+              <IconButton
+                size="xs"
+                aria-label="Delete item"
+                position="absolute"
+                icon={<CloseIcon />}
+                className="delete-btn"
+                onClick={(e) => {
+                  setItems((items) => items.filter((_, i) => i !== index));
+                  onCloseModal();
+                }}
+              />
             </Flex>
           ))}
         </Flex>
@@ -303,13 +245,13 @@ const Home = () => {
                           handleChangeEditedItem(item.name, value)
                         }
                       >
-                        <Stack direction="row" gap="2">
+                        <Flex direction="row" gap="2">
                           {item.options.map((option) => (
                             <Radio key={option} value={option}>
                               {option}
                             </Radio>
                           ))}
-                        </Stack>
+                        </Flex>
                       </RadioGroup>
                     )}
                   </Flex>
@@ -317,24 +259,23 @@ const Home = () => {
             </Flex>
           </ModalBody>
 
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onCloseModal}>
-              Close
+          <ModalFooter gap="3">
+            <Button
+              colorScheme="blue"
+              variant="solid"
+              onClick={(e) => {
+                setEditedItem((prev) => ({
+                  ...prev,
+                  style: {
+                    ...(prev ? prev.style : {}),
+                    ...getDefaultItemStyle(),
+                  },
+                }));
+              }}
+            >
+              Default
             </Button>
-            {!!editedItem && (
-              <Button
-                colorScheme="red"
-                variant="solid"
-                onClick={(e) => {
-                  setItems((items) =>
-                    items.filter((item, i) => i !== editedItem.index)
-                  );
-                  onCloseModal();
-                }}
-              >
-                Delete
-              </Button>
-            )}
+            <Button onClick={onCloseModal}>Close</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -348,6 +289,7 @@ const Home = () => {
           value={cssCode}
           onChange={() => {}}
           readOnly
+          hidesBeautify
           height="200px"
         />
       </Box>

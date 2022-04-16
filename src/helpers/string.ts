@@ -1,6 +1,7 @@
 export const CASE_TYPES = [
   'lower',
   'upper',
+  'capitalize',
   'constant',
   'camel',
   'snake',
@@ -24,6 +25,10 @@ export const convertStrByCase = (str: string, caseType: string) => {
       return str.toLowerCase();
     case 'upper':
       return str.toUpperCase();
+    case 'capitalize':
+      return convertStr(str, (s: string) =>
+        s.split(' ').map(s => capitalize(s.toLowerCase())).join(' ')
+      );
     case 'constant':
       return convertStr(str, (s: string) =>
         s.replace(/\s/g, '_').toUpperCase()

@@ -20,7 +20,7 @@ const CopyButton = ({ value, onClick }: Props) => {
         } else {
           return;
         }
-        toast({ description: 'Copied to clipboard' });
+        toast({ description: 'Copied to clipboard', duration: 1000 });
       }}
     >
       Copy

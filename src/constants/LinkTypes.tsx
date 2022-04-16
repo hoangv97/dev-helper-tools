@@ -1,11 +1,5 @@
 import { ReactElement } from 'react';
 import {
-  Html as HtmlBeautifier,
-  Css as CssBeautifier,
-  Javascript,
-  Sql,
-} from 'components/Beautifier';
-import {
   JsonCsv,
   JsonQueryString,
   NumberBase,
@@ -13,14 +7,25 @@ import {
   UnixTime,
   Css as CssConverter,
   Cipher,
+  BackslashEscape,
+  UrlParser,
 } from 'components/Converter';
+import {
+  Url as UrlEncoder,
+  Base64Image,
+  Base64String,
+  HtmlEntities,
+} from 'components/Encoder';
 import { Hash, LoremIpsum, Password, QrCode } from 'components/Generator';
 import { Html as HtmlPreviewer, Markdown } from 'components/Previewer';
 import {
   Cronjob,
-  RegexpTester,
+  RegexTester,
   TextDiffChecker,
   CssFlexboxPlayground,
+  CodeEditor,
+  JsonEditor,
+  Paint,
 } from 'components/Tools';
 import { convertStrByCase } from 'helpers/string';
 
@@ -39,32 +44,60 @@ const Types: TypeProp[] = [
     name: '',
     items: [
       {
-        name: 'Regexp tester',
-        element: <RegexpTester />,
+        name: 'Regex Tester',
+        element: <RegexTester />,
       },
       { name: 'Cronjob', element: <Cronjob /> },
       {
-        name: 'Text diff checker',
+        name: 'Text Diff Checker',
         element: <TextDiffChecker />,
       },
       {
         name: 'CSS Flexbox',
         element: <CssFlexboxPlayground />,
       },
+      {
+        name: 'Code Editor',
+        element: <CodeEditor />,
+      },
+      {
+        name: 'JSON Editor',
+        element: <JsonEditor />,
+      },
+      {
+        name: 'Paint',
+        element: <Paint />,
+      },
     ],
   },
   {
-    name: 'beautifier',
+    name: 'previewer',
     items: [
-      { name: 'HTML', element: <HtmlBeautifier /> },
-      { name: 'CSS', element: <CssBeautifier /> },
-      { name: 'Javascript', element: <Javascript /> },
-      { name: 'SQL', element: <Sql /> },
+      {
+        name: 'HTML',
+        element: <HtmlPreviewer />,
+      },
+      { name: 'Markdown', element: <Markdown /> },
     ],
   },
   {
     name: 'converter',
     items: [
+      {
+        name: 'Cipher Algorithms',
+        element: <Cipher />,
+      },
+      {
+        name: 'Number Base',
+        element: <NumberBase />,
+      },
+      {
+        name: 'String Case',
+        element: <StringCase />,
+      },
+      { name: 'Unix Time', element: <UnixTime /> },
+      { name: 'Backslash Escape', element: <BackslashEscape /> },
+      { name: 'URL Parser', element: <UrlParser /> },
       {
         name: 'CSS - SCSS/LESS',
         element: <CssConverter />,
@@ -74,19 +107,15 @@ const Types: TypeProp[] = [
         name: 'JSON - Query String',
         element: <JsonQueryString />,
       },
-      {
-        name: 'Cipher Algorithms',
-        element: <Cipher />,
-      },
-      {
-        name: 'Number base',
-        element: <NumberBase />,
-      },
-      {
-        name: 'String case',
-        element: <StringCase />,
-      },
-      { name: 'UNIX time', element: <UnixTime /> },
+    ],
+  },
+  {
+    name: 'encoder/decoder',
+    items: [
+      { name: 'HTML Entities', element: <HtmlEntities /> },
+      { name: 'Base64 String', element: <Base64String /> },
+      { name: 'Base64 Image', element: <Base64Image /> },
+      { name: 'URL', element: <UrlEncoder /> },
     ],
   },
   {
@@ -101,21 +130,12 @@ const Types: TypeProp[] = [
       { name: 'QR Code', element: <QrCode /> },
     ],
   },
-  {
-    name: 'previewer',
-    items: [
-      {
-        name: 'HTML',
-        element: <HtmlPreviewer />,
-      },
-      { name: 'Markdown', element: <Markdown /> },
-    ],
-  },
 ];
 
 export const getPath = (type: TypeProp, item: ItemProp) => {
   return (
-    (type.name ? type.name + '/' : '') + convertStrByCase(item.name, 'kebab')
+    (type.name ? type.name.replace(/\//g, '-') + '/' : '') +
+    convertStrByCase(item.name.replace(/\//g, '-'), 'kebab')
   );
 };
 

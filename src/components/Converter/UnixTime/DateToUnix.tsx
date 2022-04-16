@@ -1,13 +1,6 @@
-import {
-  Box,
-  InputGroup,
-  InputLeftAddon,
-  Input,
-  Button,
-  Flex,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { CopyButton } from 'components/Common';
+import { InputWithCopy } from 'components/Form';
 import moment, { Moment } from 'moment';
 import { useState } from 'react';
 
@@ -22,15 +15,11 @@ const DateToUnix = () => {
   return (
     <Box>
       <Flex>
-        <InputGroup>
-          <InputLeftAddon children="Date" />
-          <Input
-            type="text"
-            placeholder=""
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </InputGroup>
+        <InputWithCopy
+          leftAddon={{ children: 'Date' }}
+          value={date}
+          onChange={(value) => setDate(value)}
+        />
         <Box ml="5">
           <Button onClick={convertToTime}>Convert to timestamp</Button>
         </Box>
