@@ -9,6 +9,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { ExportButton } from 'components/Button';
+import { NumberInput } from 'components/Form';
 import {
   ACTIONS,
   getLocalStorage,
@@ -22,6 +23,7 @@ const Home = () => {
   const [isDrawing, setIsDrawing] = useState(false);
 
   // Settings
+  const [canvasSize, setCanvasSize] = useState({ width: 2000, height: 1000 });
   const [bgColor, setBgColor] = useState<string>();
   const [lineWidth, setLineWidth] = useState(5);
   const [lineColor, setLineColor] = useState(
@@ -32,6 +34,13 @@ const Home = () => {
   const linesData = useRef<any[]>(
     getLocalStorage(ACTIONS.PAINT, { lines: [] }).lines
   );
+
+  const saveStorage = () => {
+    setLocalStorage(ACTIONS.PAINT, {
+      bgColor,
+      lines: linesData.current,
+    });
+  };
 
   const redraw = (ctx: any, linesData: any[]) => {
     for (var i = 1; i < linesData.length; i++) {
@@ -51,8 +60,7 @@ const Home = () => {
       color: lineColor,
       width: lineWidth,
     });
-
-    setLocalStorage(ACTIONS.PAINT, { bgColor, lines: linesData.current });
+    saveStorage();
   };
 
   useEffect(() => {
@@ -107,6 +115,18 @@ const Home = () => {
     storeLines(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
   };
 
+  const reset = () => {
+    setEraser(false);
+    ctxRef.current.clearRect(
+      0,
+      0,
+      canvasRef.current.width,
+      canvasRef.current.height
+    );
+    linesData.current = [];
+    saveStorage();
+  };
+
   return (
     <Flex gap="4">
       <Flex
@@ -120,8 +140,8 @@ const Home = () => {
           onMouseUp={endDrawing}
           onMouseMove={draw}
           ref={canvasRef}
-          width={2000}
-          height={1000}
+          width={canvasSize.width}
+          height={canvasSize.height}
         />
       </Flex>
       <Flex direction="column" gap="3" w={300}>
@@ -167,20 +187,7 @@ const Home = () => {
           defaultFileName="image.png"
           getContent={() => canvasRef.current.toDataURL()}
         />
-        <Button
-          size="sm"
-          onClick={() => {
-            setEraser(false);
-            ctxRef.current.clearRect(
-              0,
-              0,
-              canvasRef.current.width,
-              canvasRef.current.height
-            );
-            linesData.current = [];
-            setLocalStorage(ACTIONS.PAINT, { bgColor, lines: [] });
-          }}
-        >
+        <Button size="sm" onClick={reset}>
           Reset
         </Button>
       </Flex>
