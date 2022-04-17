@@ -64,7 +64,7 @@ const StringCase = () => {
             ))}
           </Select>
         </Flex>
-        <Textarea value={output} onChange={() => {}} hidesClipboard />
+        <Textarea value={output} onChange={() => {}} readOnly />
       </Flex>
     </Flex>
   );

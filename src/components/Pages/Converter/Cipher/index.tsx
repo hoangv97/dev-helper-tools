@@ -110,7 +110,7 @@ const Home = () => {
       </Flex>
 
       <Flex direction="column" w="full" mt="5">
-        <Textarea value={output} onChange={() => {}} hidesClipboard></Textarea>
+        <Textarea value={output} onChange={() => {}} readOnly></Textarea>
       </Flex>
     </Flex>
   );

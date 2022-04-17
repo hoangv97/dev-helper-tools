@@ -9,18 +9,26 @@ import {
   Cipher,
   BackslashEscape,
   UrlParser,
-} from 'components/Converter';
+} from 'components/Pages/Converter';
 import {
   Url as UrlEncoder,
   Base64Image,
   Base64String,
   HtmlEntities,
-} from 'components/Encoder';
-import { Hash, LoremIpsum, Password, QrCode } from 'components/Generator';
-import { Html as HtmlPreviewer, Markdown } from 'components/Previewer';
-import { Cronjob, RegexTester, TextDiffChecker, Paint } from 'components/Tools';
-import { Flexbox, Grid, Transition } from 'components/CssPlayground';
-import { Code as CodeEditor, Json as JsonEditor } from 'components/Editor';
+} from 'components/Pages/Encoder';
+import { Hash, LoremIpsum, Password, QrCode } from 'components/Pages/Generator';
+import { Html as HtmlPreviewer, Markdown } from 'components/Pages/Previewer';
+import {
+  Cronjob,
+  RegexTester,
+  TextDiffChecker,
+  Paint,
+} from 'components/Pages/Tools';
+import { Flexbox, Grid, Transition } from 'components/Pages/CssPlayground';
+import {
+  Code as CodeEditor,
+  Json as JsonEditor,
+} from 'components/Pages/Editor';
 import { convertStrByCase } from 'helpers/string';
 
 interface TypeProp {

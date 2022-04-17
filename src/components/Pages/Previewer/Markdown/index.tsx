@@ -101,6 +101,7 @@ const Home = () => {
                 }
               />
               <ExportButton
+                type="text"
                 defaultFileName="README.md"
                 getContent={() => editorRef.current.editorInst.getMarkdown()}
               />

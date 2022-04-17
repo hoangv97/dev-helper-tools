@@ -231,7 +231,6 @@ interface Props {
   value: string;
   onChange: (value: string, event?: any) => void;
   readOnly?: boolean;
-  hidesCopy?: boolean;
   hidesBeautify?: boolean;
   height?: string;
   debounceChangePeriod?: number;
@@ -243,7 +242,6 @@ const CodeEditor = ({
   value,
   onChange,
   readOnly,
-  hidesCopy,
   hidesBeautify,
   height,
   debounceChangePeriod,
@@ -310,7 +308,7 @@ const CodeEditor = ({
         </Flex>
         <Flex justifyContent="end" gap="2">
           {!readOnly && <ClipboardButton onClick={onChange} />}
-          {!hidesCopy && <CopyButton value={value} />}
+          <CopyButton value={value} />
         </Flex>
       </Flex>
 

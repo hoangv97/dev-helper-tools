@@ -56,12 +56,7 @@ const Home = () => {
         </Flex>
       </Flex>
       <Flex w="full">
-        <Textarea
-          value={text}
-          onChange={() => {}}
-          minH="350px"
-          hidesClipboard
-        />
+        <Textarea value={text} onChange={() => {}} minH="350px" readOnly />
       </Flex>
     </Flex>
   );

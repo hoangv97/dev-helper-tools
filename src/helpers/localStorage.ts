@@ -3,6 +3,7 @@ export const ACTIONS = {
   HTML_PREVIEW_CODE: 'HTML_PREVIEW_CODE',
   MD_PREVIEW_CODE: 'MD_PREVIEW_CODE',
   CSS_FLEXBOX: 'CSS_FLEXBOX',
+  PAINT: 'PAINT',
 }
 
 export const getLocalStorage = (key: string, defaultValue?: any) => {
@@ -15,4 +16,8 @@ export const getLocalStorage = (key: string, defaultValue?: any) => {
 
 export const setLocalStorage = (key: string, value: any) => {
   localStorage.setItem(key, JSON.stringify(value))
+}
+
+export const removeLocalStorage = (key: string) => {
+  localStorage.removeItem(key)
 }

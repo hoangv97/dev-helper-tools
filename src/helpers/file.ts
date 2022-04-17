@@ -1,7 +1,7 @@
 
-export const download = (filename: string, text: string) => {
+export const download = (filename: string, content: string) => {
   const element = document.createElement('a')
-  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
+  element.setAttribute('href', content)
   element.setAttribute('download', filename)
 
   element.style.display = 'none'
@@ -12,7 +12,11 @@ export const download = (filename: string, text: string) => {
   document.body.removeChild(element)
 }
 
-export const importFile = (onChange: any) => {
+export const downloadAsText = (filename: string, text: string) => {
+  download(filename, `data:text/plain;charset=utf-8,${encodeURIComponent(text)}`)
+}
+
+export const importFile = (onChange: any, type = 'text') => {
   const element = document.createElement('input')
   element.setAttribute('type', 'file')
   // element.setAttribute('accept', '.json')
@@ -25,7 +29,11 @@ export const importFile = (onChange: any) => {
 
     // setting up the reader
     const reader = new FileReader();
-    reader.readAsText(file, 'UTF-8');
+    if (type === 'base64') {
+      reader.readAsDataURL(file);
+    } else {
+      reader.readAsText(file, 'UTF-8');
+    }
 
     // here we tell the reader what to do when it's done reading...
     reader.onload = (readerEvent: any) => {

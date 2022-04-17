@@ -7,9 +7,9 @@ import {
   Center,
   Heading,
 } from '@chakra-ui/react';
-import { Sidebar } from 'containers/Sidebar';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import Home from 'containers/Home';
+import { Sidebar } from 'components/Sidebar';
+import Home from 'components/Pages/Home';
 import LinkTypes, { getPath } from 'constants/LinkTypes';
 import './style.scss';
 import theme from './theme';

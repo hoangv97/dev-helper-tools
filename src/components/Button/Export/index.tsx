@@ -12,14 +12,15 @@ import {
   PopoverTrigger,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { download } from 'helpers/file';
+import { download, downloadAsText } from 'helpers/file';
 
 interface Props {
   defaultFileName: string;
   getContent: () => string;
+  type?: string;
 }
 
-const Home = ({ defaultFileName, getContent }: Props) => {
+const Home = ({ defaultFileName, getContent, type }: Props) => {
   const [fileName, setFileName] = useState(defaultFileName);
 
   return (
@@ -46,7 +47,11 @@ const Home = ({ defaultFileName, getContent }: Props) => {
                 <Button
                   colorScheme="teal"
                   onClick={() => {
-                    download(fileName, getContent());
+                    if (type === 'text') {
+                      downloadAsText(fileName, getContent());
+                    } else {
+                      download(fileName, getContent());
+                    }
                     onClose();
                   }}
                 >

@@ -1,21 +1,19 @@
 import { Textarea, Flex } from '@chakra-ui/react';
-import { CopyButton, ClipboardButton } from 'components/Button';
+import {
+  CopyButton,
+  ClipboardButton,
+  ClearButton,
+  ImportButton,
+} from 'components/Button';
 
 interface Props {
   value: string;
   onChange: (value: string) => void;
-  hidesClipboard?: boolean;
-  hidesCopy?: boolean;
+  readOnly?: boolean;
   minH?: string;
 }
 
-const TextareaWrapper = ({
-  value,
-  onChange,
-  hidesClipboard,
-  hidesCopy,
-  minH,
-}: Props) => {
+const TextareaWrapper = ({ value, onChange, readOnly, minH }: Props) => {
   return (
     <Flex direction="column" w="full" h="full" gap="2">
       <Textarea
@@ -25,8 +23,14 @@ const TextareaWrapper = ({
         onChange={(e) => onChange(e.target.value)}
       ></Textarea>
       <Flex justifyContent="end" gap="2">
-        {!hidesClipboard && <ClipboardButton onClick={onChange} />}
-        {!hidesCopy && <CopyButton value={value} />}
+        {!readOnly && (
+          <>
+            <ImportButton setContent={onChange} />
+            <ClearButton onClick={onChange} />
+            <ClipboardButton onClick={onChange} />
+          </>
+        )}
+        <CopyButton value={value} />
       </Flex>
     </Flex>
   );
