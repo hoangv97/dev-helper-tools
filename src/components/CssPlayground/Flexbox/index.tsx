@@ -151,7 +151,7 @@ const Home = () => {
           )}
         </Flex>
       </Box>
-      <Box border="1px solid gray">
+      <Box border="1px solid" borderColor="gray.500">
         <Flex h="full" minH="300px" style={{ ...containerStyle }}>
           {items.map((item, index) => (
             <Flex
@@ -179,6 +179,7 @@ const Home = () => {
               </Flex>
               <IconButton
                 size="xs"
+                variant="outline"
                 aria-label="Delete item"
                 position="absolute"
                 icon={<CloseIcon />}

@@ -30,47 +30,43 @@ const StringCase = () => {
   };
 
   return (
-    <>
-      <Flex justifyContent="space-between">
-        <Flex direction="column" w="48%">
-          <Flex minH="60px" alignItems="center">
-            <Button size="sm" onClick={insertSample}>
-              Sample
-            </Button>
-          </Flex>
-          <Textarea minH="300px" value={input} onChange={handleInputChange} />
+    <Flex h="full">
+      <Flex direction="column" gap="3" flexGrow={1}>
+        <Flex minH="40px">
+          <Button size="sm" onClick={insertSample}>
+            Sample
+          </Button>
         </Flex>
-        <Center>
-          <IconButton
-            size="md"
-            fontSize="lg"
-            variant="ghost"
-            color="current"
-            disabled
-            onClick={() => {}}
-            icon={<ArrowForwardIcon />}
-            aria-label={``}
-          />
-        </Center>
-        <Flex direction="column" w="48%">
-          <Flex minH="60px" justifyContent="flex-end">
-            <Select w="200px" value={caseType} onChange={handleCaseTypeChange}>
-              {CASE_TYPES.map((type) => (
-                <option key={type} value={type}>
-                  {convertStrByCase(`${type} case`, type)}
-                </option>
-              ))}
-            </Select>
-          </Flex>
-          <Textarea
-            minH="300px"
-            value={output}
-            onChange={() => {}}
-            hidesClipboard
-          />
+        <Flex flexGrow={1}>
+          <Textarea value={input} onChange={handleInputChange} />
         </Flex>
       </Flex>
-    </>
+      <Center>
+        <IconButton
+          size="md"
+          fontSize="lg"
+          variant="ghost"
+          color="current"
+          disabled
+          cursor="default !important"
+          onClick={() => {}}
+          icon={<ArrowForwardIcon />}
+          aria-label={``}
+        />
+      </Center>
+      <Flex direction="column" gap="3" flexGrow={1}>
+        <Flex justifyContent="flex-end">
+          <Select value={caseType} onChange={handleCaseTypeChange}>
+            {CASE_TYPES.map((type) => (
+              <option key={type} value={type}>
+                {convertStrByCase(`${type} case`, type)}
+              </option>
+            ))}
+          </Select>
+        </Flex>
+        <Textarea value={output} onChange={() => {}} hidesClipboard />
+      </Flex>
+    </Flex>
   );
 };
 

@@ -4,7 +4,7 @@ import {
   InputLeftAddon,
   InputRightElement,
 } from '@chakra-ui/react';
-import { ClipboardButton, CopyButton } from 'components/Common';
+import { ClipboardButton, CopyButton } from 'components/Button';
 
 interface Props {
   value: string;

@@ -1,4 +1,3 @@
-import { filter } from "@chakra-ui/react";
 import { randomStyleObject } from "helpers/color";
 import { camelToKebabCase, convertStrByCase } from "helpers/string";
 

@@ -1,5 +1,5 @@
 import { Box, Button, Flex, useDisclosure } from '@chakra-ui/react';
-import { CopyButton, ClipboardButton } from 'components/Common';
+import { CopyButton, ClipboardButton } from 'components/Button';
 import AceEditor from 'react-ace';
 
 import 'ace-builds/src-min-noconflict/mode-abap';

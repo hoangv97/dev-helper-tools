@@ -1,5 +1,5 @@
-import { Box, Textarea, Flex } from '@chakra-ui/react';
-import { CopyButton, ClipboardButton } from 'components/Common';
+import { Textarea, Flex } from '@chakra-ui/react';
+import { CopyButton, ClipboardButton } from 'components/Button';
 
 interface Props {
   value: string;
@@ -17,17 +17,18 @@ const TextareaWrapper = ({
   minH,
 }: Props) => {
   return (
-    <Box w="full">
+    <Flex direction="column" w="full" h="full" gap="2">
       <Textarea
-        minH={minH ?? '120px'}
+        flexGrow={1}
+        minH={minH ?? '200px'}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       ></Textarea>
-      <Flex justifyContent="end" gap="2" mt="2">
+      <Flex justifyContent="end" gap="2">
         {!hidesClipboard && <ClipboardButton onClick={onChange} />}
         {!hidesCopy && <CopyButton value={value} />}
       </Flex>
-    </Box>
+    </Flex>
   );
 };
 

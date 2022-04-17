@@ -1,5 +1,5 @@
-import { Flex, Text } from '@chakra-ui/react';
-import { ClipboardButton, CopyButton } from 'components/Common';
+import { Flex } from '@chakra-ui/react';
+import { ClipboardButton, CopyButton } from 'components/Button';
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 import JSONEditor from 'jsoneditor';
 import 'jsoneditor/dist/jsoneditor.min.css';

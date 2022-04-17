@@ -58,11 +58,7 @@ const Home = () => {
   return (
     <Box>
       <Flex direction="column" w="full">
-        <Textarea
-          minH="150px"
-          value={input}
-          onChange={handleInputChange}
-        ></Textarea>
+        <Textarea value={input} onChange={handleInputChange}></Textarea>
       </Flex>
       <Flex justifyContent="center" mb="6">
         <Button size="md" onClick={generate}>

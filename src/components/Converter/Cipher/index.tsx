@@ -78,11 +78,7 @@ const Home = () => {
   return (
     <Flex direction="column" gap="4">
       <Flex direction="column" w="full" gap="3">
-        <Textarea
-          minH="150px"
-          value={input}
-          onChange={handleInputChange}
-        ></Textarea>
+        <Textarea value={input} onChange={handleInputChange}></Textarea>
         <PasswordInput
           value={passphrase}
           onChange={(value) => setPassphrase(value)}
@@ -114,12 +110,7 @@ const Home = () => {
       </Flex>
 
       <Flex direction="column" w="full" mt="5">
-        <Textarea
-          minH="150px"
-          value={output}
-          onChange={() => {}}
-          hidesClipboard
-        ></Textarea>
+        <Textarea value={output} onChange={() => {}} hidesClipboard></Textarea>
       </Flex>
     </Flex>
   );

@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
-import { CopyButton } from 'components/Common';
+import { CopyButton } from 'components/Button';
 import { InputWithCopy } from 'components/Form';
 import moment, { Moment } from 'moment';
 import { useState } from 'react';

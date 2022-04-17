@@ -1,7 +1,7 @@
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
-import { Box, Button, ButtonGroup, Flex, Select, Text } from '@chakra-ui/react';
+import { Button, ButtonGroup, Flex } from '@chakra-ui/react';
 import { JsonEditor } from 'components/Form';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 
 const Home = () => {
   const editor1 = useRef<any>();

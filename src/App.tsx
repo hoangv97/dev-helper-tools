@@ -17,7 +17,7 @@ import { capitalize } from 'helpers/string';
 
 export const App = () => {
   const { pathname } = useLocation();
-  console.log(pathname);
+  // console.log(pathname);
 
   let headingElement;
   for (const type of LinkTypes) {

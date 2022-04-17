@@ -1,24 +1,13 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import { Box, Flex, useColorModeValue } from '@chakra-ui/react';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import { Editor } from '@toast-ui/react-editor';
-import { ClipboardButton, CopyButton } from 'components/Common';
+import {
+  ClipboardButton,
+  CopyButton,
+  ExportButton,
+  ImportButton,
+} from 'components/Button';
 import './style.scss';
 
 import '@toast-ui/chart/dist/toastui-chart.css';
@@ -47,14 +36,12 @@ import {
   getLocalStorage,
   setLocalStorage,
 } from 'helpers/localStorage';
-import { download } from 'helpers';
 
 const Home = () => {
   const theme = useColorModeValue('light', 'dark');
   // console.log(theme);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [fileName, setFileName] = useState('README.md');
 
   useEffect(() => {
     setIsLoading(true);
@@ -107,40 +94,16 @@ const Home = () => {
             />
           </Box>
           <Flex mt="3" gap="2" w="50%" justifyContent="space-between">
-            <Flex>
-              <Popover placement="top-start">
-                <PopoverTrigger>
-                  <Button h="1.75rem" size="sm">
-                    Export
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent pt="5">
-                  <PopoverArrow />
-                  <PopoverCloseButton />
-                  <PopoverBody d="flex" flexDirection="column" gap="4">
-                    <FormControl>
-                      <FormLabel>File name</FormLabel>
-                      <Input
-                        value={fileName}
-                        onChange={(e) => setFileName(e.target.value)}
-                      />
-                    </FormControl>
-                    <ButtonGroup d="flex" justifyContent="flex-end" size="sm">
-                      <Button
-                        colorScheme="teal"
-                        onClick={() => {
-                          download(
-                            fileName,
-                            editorRef.current.editorInst.getMarkdown()
-                          );
-                        }}
-                      >
-                        Save
-                      </Button>
-                    </ButtonGroup>
-                  </PopoverBody>
-                </PopoverContent>
-              </Popover>
+            <Flex gap="2">
+              <ImportButton
+                setContent={(value) =>
+                  editorRef.current.editorInst.setMarkdown(value)
+                }
+              />
+              <ExportButton
+                defaultFileName="README.md"
+                getContent={() => editorRef.current.editorInst.getMarkdown()}
+              />
             </Flex>
             <Flex gap="2">
               <ClipboardButton

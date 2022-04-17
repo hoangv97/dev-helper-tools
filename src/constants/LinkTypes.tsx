@@ -18,15 +18,9 @@ import {
 } from 'components/Encoder';
 import { Hash, LoremIpsum, Password, QrCode } from 'components/Generator';
 import { Html as HtmlPreviewer, Markdown } from 'components/Previewer';
-import {
-  Cronjob,
-  RegexTester,
-  TextDiffChecker,
-  CssFlexboxPlayground,
-  CodeEditor,
-  JsonEditor,
-  Paint,
-} from 'components/Tools';
+import { Cronjob, RegexTester, TextDiffChecker, Paint } from 'components/Tools';
+import { Flexbox, Grid, Transition } from 'components/CssPlayground';
+import { Code as CodeEditor, Json as JsonEditor } from 'components/Editor';
 import { convertStrByCase } from 'helpers/string';
 
 interface TypeProp {
@@ -53,18 +47,6 @@ const Types: TypeProp[] = [
         element: <TextDiffChecker />,
       },
       {
-        name: 'CSS Flexbox',
-        element: <CssFlexboxPlayground />,
-      },
-      {
-        name: 'Code Editor',
-        element: <CodeEditor />,
-      },
-      {
-        name: 'JSON Editor',
-        element: <JsonEditor />,
-      },
-      {
         name: 'Paint',
         element: <Paint />,
       },
@@ -78,6 +60,36 @@ const Types: TypeProp[] = [
         element: <HtmlPreviewer />,
       },
       { name: 'Markdown', element: <Markdown /> },
+    ],
+  },
+  {
+    name: 'CSS',
+    items: [
+      {
+        name: 'Flexbox',
+        element: <Flexbox />,
+      },
+      {
+        name: 'Grid',
+        element: <Grid />,
+      },
+      {
+        name: 'Transition',
+        element: <Transition />,
+      },
+    ],
+  },
+  {
+    name: 'editor',
+    items: [
+      {
+        name: 'Code',
+        element: <CodeEditor />,
+      },
+      {
+        name: 'JSON',
+        element: <JsonEditor />,
+      },
     ],
   },
   {
