@@ -263,6 +263,34 @@ const CodeEditor = ({
     }
   }, [isOpenModal]);
 
+  const splitter =
+    '===========================================================\nResult:\n';
+
+  const removeSplitter = (value: string) => {
+    return value.split(splitter)[0].trim();
+  };
+
+  const runCode = () => {
+    if (mode === 'javascript') {
+      const code = removeSplitter(value);
+
+      let result;
+      try {
+        result = eval(code);
+        console.log(result);
+      } catch (e) {
+        console.error(e);
+        result = e;
+      } finally {
+        onChange(`${code}\n\n\n${splitter}${result}\n\n\n\n\n\n`);
+      }
+    }
+  };
+
+  const clearResult = () => {
+    onChange(removeSplitter(value));
+  };
+
   return (
     <Box>
       <AceEditor
@@ -303,6 +331,16 @@ const CodeEditor = ({
             >
               Beautify
             </Button>
+          )}
+          {['javascript'].includes(mode) && (
+            <>
+              <Button h="1.75rem" size="sm" onClick={runCode}>
+                Run
+              </Button>
+              <Button h="1.75rem" size="sm" onClick={clearResult}>
+                Clear Result
+              </Button>
+            </>
           )}
           {leftAddon}
         </Flex>

@@ -38,7 +38,7 @@ export const Sidebar = (props: SidebarProps) => {
 
   return (
     <Flex
-      w="240px"
+      minW="240px"
       py="3"
       direction="column"
       justifyContent="space-between"

@@ -1,5 +1,10 @@
 import { Box, Button, Flex, Select, Text } from '@chakra-ui/react';
 import { CodeEditor } from 'components/Form';
+import {
+  ACTIONS,
+  getLocalStorage,
+  setLocalStorage,
+} from 'helpers/localStorage';
 import { useEffect, useState } from 'react';
 
 const MODES = [
@@ -25,8 +30,17 @@ const MODES = [
 ];
 
 const Home = () => {
-  const [mode, setMode] = useState(MODES[0].value);
-  const [code, setCode] = useState('');
+  const [mode, setMode] = useState(
+    getLocalStorage(ACTIONS.CODE_EDITOR_PAGE_SETTINGS, { mode: MODES[0].value })
+      .mode
+  );
+  const [code, setCode] = useState(
+    getLocalStorage(ACTIONS.CODE_EDITOR_PAGE_SETTINGS, { code: '' }).code
+  );
+
+  useEffect(() => {
+    setLocalStorage(ACTIONS.CODE_EDITOR_PAGE_SETTINGS, { mode, code });
+  }, [mode, code]);
 
   return (
     <Flex direction="column" gap="4">
